@@ -17,8 +17,7 @@ function Product({ //After we fetched the products, we destructure, to get the k
   const {theme, setTheme} = useContext(ThemesContext);//theme here includes setTheme (from App.js const [theme, setTheme] = useState('light'); ), so we distracture and get only theme
 
   return ( //here we render all the keys we got to the DOM 
-    <div className={`product ${theme === 'dark'? 'dark-theme' : 'light-theme'}`}> {/*If theme is dark i add "dark-theme" class, else "light-theme*/}
-    <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Toggle theme</button>
+    <div className="product"> 
       <img src={image} className="product-image" alt="product-img"/>
       <span>{category}</span>
       <h3>{title}</h3>
