@@ -1,24 +1,25 @@
 import './App.css';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cart from './../Cart';
 import Catalog from '../Catalog';
 import Categories from '../Categories';
-
+import ThemeProvider from '../ThemesContext';
 
 
 function App() {
   const [products, setProducts] = useState([]);//At the begining we have an empty array of products
-  const [cartitems, setIcarttems] = useState({});//This useState was cut from Cart so we can use it in onAddToCart function
+  const [cartItems, setIcarttems] = useState({});//This useState was cut from Cart so we can use it in onAddToCart function
                                                  //"cartitems" is an object . It's keys are the objects idies 
                                                  //its values are the quantity of each id (how many of the same id we added to cart)
+  
   const addToCart = id =>{//Is the id that we passed in Product component in
                           //<button onClick={() => onAddToCart(id)}>Add to cart ${price}</button>
-    const currentQuentity = cartitems[id] ??  0;  //?? checkes if  cartitems[id] value is undefined or NULL (checks if we already have this id in the cart cuz if we don't have it we won't be able to add to its quantity) 
+    const currentQuentity = cartItems[id] ??  0;  //?? checkes if  cartitems[id] value is undefined or NULL (checks if we already have this id in the cart cuz if we don't have it we won't be able to add to its quantity) 
                                                   //if its not undefined or NULL it takes the value (that can be 1/2/3 depends on the value in the idies quantity)
                                                   //and if its undefined or NULL it takes 0 instead
 
-    setIcarttems({...cartitems, [id]: currentQuentity+1}); //Take all the cartitems that already exist in the cart
+    setIcarttems({...cartItems, [id]: currentQuentity+1}); //Take all the cartitems that already exist in the cart
                                                            //and in the spesific id (the id that is in [id] place)add 1 to the value that is in its "currentQuentity"
   }
 
@@ -32,13 +33,15 @@ function App() {
   
 
     return(
+    <ThemeProvider>
     <div className="App"> 
-      <Cart products={products} items={cartitems}/> {/*Using "products" (all the products) array as a prop so we can access it in Cart component */}
+      <Cart products={products} items={cartItems}/> {/*Using "products" (all the products) array as a prop so we can access it in Cart component */}
                                                      {/*Using "items" (only cart products) as a prop so we can access it in Cart component  */}
       <Categories />
       <Catalog products={products} onAddToCart={addToCart} /> {/*Using "products" array as a prop so we can access it in Catalog component */}
                                                       {/*"onAddToCart" is a prop that stores "addToCart" function so we can use it in catalog*/}
     </div>
+    </ThemeProvider>
     );
 }
 

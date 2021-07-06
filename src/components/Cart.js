@@ -1,17 +1,24 @@
+import './Cart.css';
 
-
-export default function Cart({items, products}){//"items" is a prop from App.js
-                                                //it's an object with keys that are the id and quantity as the idies values
-                                                //"products" is a prop from App.js
-    
-
+function CartItem({name, quantity}) {
     return (
-        <>
-    
-            Cart: {Object.entries(items).map(([id, quantity])=> //*Object.entries takes an object and returns am array with  key:value pairs arrays [[key:value], [key:value]] 
-              `Product id ${id}: quantity ${quantity} |`
-            )} 
-      
-        </>
+        <div className="cart-item">
+            <span className="cart-item-name">{name}</span>
+            <span className="cart-item-quantity">{quantity}</span>
+        </div>
     );
 }
+
+export default function Cart({items, products}) {
+    return (
+        <div className="cart">
+            <h3>Cart</h3>
+            {Object.entries(items)
+                .map(([id, quantity]) => 
+                    <CartItem 
+                        name={products[id].title} 
+                        quantity={quantity} 
+                    />)}
+        </div>
+    );
+} 
