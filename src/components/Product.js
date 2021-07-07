@@ -1,7 +1,6 @@
 import './Product.css';
-import { useContext } from 'react';
-import React from 'react';
-import {ThemesContext} from './ThemesContext';
+import React, { useContext } from 'react';
+import { CartContext } from './App/CartContext';
 
 
 function Product({ //After we fetched the products, we destructure, to get the keys separetly and use them later on 
@@ -11,10 +10,9 @@ function Product({ //After we fetched the products, we destructure, to get the k
   image,
   title,
   price,
-  onAddToCart,//A function that adds to cart on button click 
 }) {
 
-  const {theme, setTheme} = useContext(ThemesContext);//theme here includes setTheme (from App.js const [theme, setTheme] = useState('light'); ), so we distracture and get only theme
+  const {addToCart} = useContext(CartContext);//we got the addToCart function from CartContext fom CartContext.js
 
   return ( //here we render all the keys we got to the DOM 
     <div className="product"> 
@@ -22,7 +20,7 @@ function Product({ //After we fetched the products, we destructure, to get the k
       <span>{category}</span>
       <h3>{title}</h3>
       <p>{description}</p>
-      <button onClick={() => onAddToCart(id)}>Add to cart ${price}</button>{/*When the button is clicked*/}
+      <button onClick={() => addToCart(id)}>Add to cart ${price}</button>{/*When the button is clicked*/}
      </div>                                                                 //call the onAddToCartf function
   );                                                                        //and pass it the id of the product
 }                                                                           //so it will add the id to the cart
